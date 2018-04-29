@@ -10,13 +10,6 @@ app.use(express.static('public'))
 
 var server = app.listen(process.env.PORT || 8080, () => console.log('We are in the Building'))
 
-MongoClient.connect(url, function(err, client) {
-
-  if (err) {
-    throw err;
-  }
-DB = client.db('memory');
- })
 
 
 var io = require('socket.io').listen(server);
