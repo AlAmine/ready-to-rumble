@@ -65,7 +65,7 @@
    })
  })
 
-  socket.on('letsplay', function {
+  socket.on('ready', function (){
     if (game.player.id == client_id) {
       player = game.player1;
       adversaire = game.player2;
@@ -90,6 +90,6 @@
     set_turn(turn);
   })
   socket.on('leave', function(perso){
-   $('#' + perso.id).remove();
+   $('#' + user.id).remove();
  })
 })(jQuery)

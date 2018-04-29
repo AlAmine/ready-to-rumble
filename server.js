@@ -37,7 +37,8 @@ io.on('connection', function(socket) {
     console.log(joueur_info.username)
 
     var user = {};
-    console.log(user)
+    console.log(players)
+    console.log(socket.id)
     user.login = joueur_info.username;
     user.email = joueur_info.mail;
     user.id = joueur_info.mail.replace('@', '-').replace('.', '-');
@@ -55,10 +56,10 @@ io.on('connection', function(socket) {
   var adversaire = {};
 
   adversaire.id = defi.dest_id;
-  adversaire.login = defi.perso.login;
-  adversaire.avatar = defi.perso.avatar;
-  adversaire.mail = defi.perso.mail;
-  io.to(defi.dest_id).emit('letsplay', adversaire);
+  adversaire.login = defi.login;
+  adversaire.avatar = defi.avatar;
+  adversaire.mail = defi.mail;
+  socket.emit('letsplay', adversaire);
 
   })
 
@@ -89,9 +90,9 @@ io.on('connection', function(socket) {
     if(!user) {
       return false
     }
-    delete players[perso.id]
+    delete sockets[user.id]
 
-    console.log(players[perso.id]);
+    console.log(players[user.id]);
     io.sockets.emit('leave', perso)
   })
 })
