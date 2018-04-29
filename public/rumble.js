@@ -45,50 +45,7 @@
     });
  });
 
- // Gestion des défis
-  socket.on('letsplay', function(adversaire) {
-   var encart ='<div id="defi">';
-   encart +=  'Vous avez été défié par :<br />';
-   encart += '<img style="float:left;padding-right:10px;" src="' + adversaire.avatar + '"id ="'+ adversaire.id +'"><br /><b>' +' ' + adversaire.login +' ('+ adversaire.mail +')<br />';
-   encart += '<input type="submit" class="defi_refuser" data-id="' + adversaire.id +'" value="Refuser" />';
-   encart += '<input type="submit" class="defi_accepter" data-id="' + adversaire.id +'" value="Accepter" />';
 
-   $('#defi').append(encart);
-   $('.defi_accepter').click(function() {
-     var src_id = client_id;
-     var dest_id = $(this).attr('data-id');
-
-     socket.emit('defi-accept', {
-       src_id: src_id,
-       dest_id: dest_id
-     });
-   })
- })
-
-  socket.on('ready', function (){
-    if (game.player.id == client_id) {
-      player = game.player1;
-      adversaire = game.player2;
-    } else {
-      player = game.player2;
-      adversaire = game.player1;
-    }
-    board = game.board;
-    game_id = game.id;
-
-    var msg = 'Vous êtes <strong>' + player.login + '</strong> et vous jouez contre <strong>' + adversaire.id + '</strong>';
-    $('#game_details').append(msg);
-    $('#room').hide();
-    $('#game').show();
-
-    if (player.num == 1) {
-      game_id = player.id + adversaire.id;
-    } else {
-      game_id = adversaire.id + player.id;
-    }
-    turn = 1;
-    set_turn(turn);
-  })
   socket.on('leave', function(perso){
    $('#' + user.id).remove();
  })
