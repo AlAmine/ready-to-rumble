@@ -4,28 +4,28 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-  <link href="styles.css" rel="stylesheet" type="text/css"/>
+  <link href="css/style.css" rel="stylesheet" type="text/css"/>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <script src="socket.io/socket.io.js"></script>
+
   <title>Ready to rumble</title>
 </head>
 <body>
   <nav>
   <ul>
     <li><a href="/"><img src="/img/as-de-pique.jpg" height="70px"/></a></li>
-    <li><a href="/memori">Let's play!</a></li>
-    <li><a href="/score">Who's the best!</a></li>
-    <li><a href="/contact">Contact</a></li>
+    <li><a href="/#">Let's play!</a></li>
+    <li><a href="/#">Who's the best!</a></li>
+    <li><a href="/#">Contact</a></li>
   </ul>
 </nav>
   <h1>Get Ready to rumble</h1>
   <div id="login">
   <form id="form_joueur_login">
-    <input tye="text" id="joueur_login" name="joueur_login" placeholder="Pseudo" /><br />
-    <input type="email" id="joueur_mail" name="joueur_mail" placeholder="Adresse mail" /> <br />
+    <input tye="text" id="joueur_login" name="joueur_login" placeholder="Pseudo" required /><br />
+    <input type="email" id="joueur_mail" name="joueur_mail" placeholder="Adresse mail" required/> <br />
     <input type="submit" id="joueur_login_submit" value="Se connecter" />
 </div>
 
@@ -35,8 +35,14 @@
     <div id="joueur_info"></div>
     <h2>Adversaires disponibles</h2>
   </div>
-
+  <div id="defi"><h2>Défis en attente</h2></div>
+</div>
 
 <div id="game" style="display:none">
+  <div id="game_details"></div>
+
+
+  <script src="socket.io/socket.io.js"></script>
+  <script src="rumble.js"></script>
 </body>
 </html>
