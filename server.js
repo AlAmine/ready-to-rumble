@@ -6,9 +6,13 @@ const md5 = require('MD5')
 const url = 'mongodb://nodeApp:567890@127.0.0.1:27017/memory';
 let DB;
 
-app.use(express.static('public'))
+app.use(express.static(__dirname + '/public'));
 
-var server = app.listen(process.env.PORT || 8080, () => console.log('We are in the Building'))
+app.get('/', function (req, res) {
+  res.render('index.html');
+});
+
+var server = app.listen(process.env.PORT || 8080, () => console.log('We are in the Building'));
 
 
 
