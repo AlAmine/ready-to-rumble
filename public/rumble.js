@@ -25,15 +25,15 @@
   });
 
 // Gestion des utilsateurs connectés
-  socket.on('newuser', function(perso){
-    client_id = perso.id;
-    player = perso;
-   var online = '<div id="' + perso.id +'">';
-   online += '<img style="float:left;padding-right:40px;" src="' + perso.avatar + '"id ="'+ perso.id +'"><br /><b>'+' ' + perso.login + '</b>';
-   online += '<input type="submit" class="defier" data-id="' + perso.id + '" value="Défier" />';
+  socket.on('newuser', function(user){
+
+   var online = '<div id="' + user.id +'">';
+   online += '<img style="float:left;padding-right:40px;" src="' + user.avatar + '"id ="'+ user.id +'"><br /><b>'+' ' + user.login + '</b>';
+   online += '<input type="submit" class="defier" data-id="' + user.id + '" value="Défier" />';
    online += '</div><br />';
 
    $('#joueurs').append(online);
+
    $('.defier').click(function(){
      var src_id = client_id;
      var dest_id = $(this).attr('data-id');
@@ -41,10 +41,8 @@
      socket.emit('defi', {
        src_id: src_id,
        dest_id: dest_id,
-       perso: [perso]
-
-     });
-   });
+      });
+    });
  });
 
  // Gestion des défis
@@ -60,9 +58,37 @@
      var src_id = client_id;
      var dest_id = $(this).attr('data-id');
 
-     socket.emit('defi-accept', );
+     socket.emit('defi-accept', {
+       src_id: src_id,
+       dest_id: dest_id
+     });
    })
  })
+
+  socket.on('letsplay', function {
+    if (game.player.id == client_id) {
+      player = game.player1;
+      adversaire = game.player2;
+    } else {
+      player = game.player2;
+      adversaire = game.player1;
+    }
+    board = game.board;
+    game_id = game.id;
+
+    var msg = 'Vous êtes <strong>' + player.login + '</strong> et vous jouez contre <strong>' + adversaire.id + '</strong>';
+    $('#game_details').append(msg);
+    $('#room').hide();
+    $('#game').show();
+
+    if (player.num == 1) {
+      game_id = player.id + adversaire.id;
+    } else {
+      game_id = adversaire.id + player.id;
+    }
+    turn = 1;
+    set_turn(turn);
+  })
   socket.on('leave', function(perso){
    $('#' + perso.id).remove();
  })

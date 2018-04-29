@@ -62,7 +62,27 @@ io.on('connection', function(socket) {
 
   })
 
+  socket.on('defi_accept', function(defi) {
+    //new game
+    player1_id = defi.dest_id;
+    player2_id = defi.src_id;
 
+    player1 = players[player1_id];
+    player2 = players[player2_id];
+
+    var game_id = player1_id+player2_id;
+
+    player1.num = 1;
+
+    player2.num = 2;
+
+    games[game_id] = {id:game_id, player1:player1, player2:player2, board:board};
+
+    sockets[player1_id].emit('letsgame', games[game_id]);
+    sockets[player2_id].emit('letsgame', games[game_id]);
+
+    console.log("Ready to rumble :" + game_id + " - "+ player1.login + " vs " +  player2.login)
+  })
 
   // Deconnexion du serveur
   socket.on('disconnect', function() {
